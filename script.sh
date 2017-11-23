@@ -8,7 +8,7 @@ displayMapWithCoordinates() {
 	geoString="https://maps.googleapis.com/maps/api/geocode/json?address="$1"&key=AIzaSyCbpwh-0wO5ERqLcRv6gCts9ZDIW2OXrXE"
 	geoInfo=$($curlpath $geoString $geoflags | python3 -c "import sys, json; print(json.load(sys.stdin)['results'][0]['geometry']['location'])")
 	echo "Coordinates: $geoInfo"
-	imglink="https://maps.googleapis.com/maps/api/staticmap?center="$1"&zoom="$2"&size=150x90&key=AIzaSyCbpwh-0wO5ERqLcRv6gCts9ZDIW2OXrXE"
+	imglink="https://maps.googleapis.com/maps/api/staticmap?center="$1"&zoom="$2"&size=150x90&maptype="$3"&key=AIzaSyCbpwh-0wO5ERqLcRv6gCts9ZDIW2OXrXE"
 	imgname="map.png"
 	imgflags="-s -o"
 	store=$($curlpath $imglink $imgflags $imgname)
@@ -16,23 +16,25 @@ displayMapWithCoordinates() {
 	rm "map.png"
 }
 
-echo -n "Enter the location: "
+echo -n "Enter the address or coordinates (lat,lng): "
 read location
 location=$(echo "$location" | tr " " "+")
 zoom=14
-displayMapWithCoordinates $location $zoom
+maptype="roadmap"
+displayMapWithCoordinates $location $zoom $maptype
 
 while true
 do
 	echo "OPTIONS"
 	echo "1. Change location"
 	echo "2. Change zoom on the present location"
-	echo "3. Exit"
+	echo "3. Change map view (roadmap <=> satellite) on the present location"
+	echo "4. Exit"
 	echo -n "Enter your option: "
 	read option
 	if [ $option -eq 1 ]
 		then
-		echo -n "Enter the new location: "
+		echo -n "Enter the new address or coordinates (lat,lng): "
 		read location
 		location=$(echo "$location" | tr " " "+")
 		zoom=14
@@ -49,7 +51,15 @@ do
 		fi
 	elif [ $option -eq 3 ]
 		then
+		if [ $maptype = "roadmap" ]
+			then
+			maptype="hybrid"
+		else
+			maptype="roadmap"
+		fi
+	elif [ $option -eq 4 ]
+		then
 		break
 	fi
-	displayMapWithCoordinates $location $zoom
+	displayMapWithCoordinates $location $zoom $maptype
 done
