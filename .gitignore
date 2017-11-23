@@ -1,2 +1,4 @@
 # ignore all png files
 *.png
+# ignore text file containing API key
+key.txt

@@ -5,10 +5,10 @@ displayMapWithCoordinates() {
 	echo "LOCATION: $(echo "$1" | tr "+" " ")"
 	curlpath="/usr/bin/curl"
 	geoflags="-s"
-	geoString="https://maps.googleapis.com/maps/api/geocode/json?address="$1"&key=AIzaSyCbpwh-0wO5ERqLcRv6gCts9ZDIW2OXrXE"
+	geoString="https://maps.googleapis.com/maps/api/geocode/json?address="$1"&key="$key
 	geoInfo=$($curlpath $geoString $geoflags | python3 -c "import sys, json; print(json.load(sys.stdin)['results'][0]['geometry']['location'])")
 	echo "Coordinates: $geoInfo"
-	imglink="https://maps.googleapis.com/maps/api/staticmap?center="$1"&zoom="$2"&size=150x90&maptype="$3"&key=AIzaSyCbpwh-0wO5ERqLcRv6gCts9ZDIW2OXrXE"
+	imglink="https://maps.googleapis.com/maps/api/staticmap?center="$1"&zoom="$2"&size=150x90&maptype="$3"&key="$key
 	imgname="map.png"
 	imgflags="-s -o"
 	store=$($curlpath $imglink $imgflags $imgname)
@@ -16,6 +16,7 @@ displayMapWithCoordinates() {
 	rm "map.png"
 }
 
+key=$(cat key.txt)
 echo -n "Enter the address or coordinates (lat,lng): "
 read location
 location=$(echo "$location" | tr " " "+")
