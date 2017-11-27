@@ -1,5 +1,16 @@
 # bashMaps
-bashMaps is a Google Maps viewer for command line interface. The idea is to use Google Maps API to obtain a png for the user's map query and display this in the command line. This is a group project made for Unix (IT202) course.
+bashMaps is a Google Maps viewer for command line interface. This is a group project made for Unix (IT202) course.
+
+## Features
+* View location map in the terminal
+* Zoom in and out of the map
+* Satellite view
+* Search for places nearby
+
+## APIs Used
+* Google Static Maps API
+* Google Maps Geocoding API
+* Google Places API Web Service
 
 ## Group Members
 * [Jahnavi](https://github.com/Jahnavi-Tirunagari)
