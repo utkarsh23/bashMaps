@@ -1,4 +1,9 @@
 # bashMaps
+
+Satellite view | Roadmap view
+:-------------------------:|:-------------------------:
+![screenshot 1](https://github.com/utkarsh23/bashMaps/blob/master/screenshot_1.jpg "Screenshot 1") | ![screenshot 2](https://github.com/utkarsh23/bashMaps/blob/master/screenshot_2.jpg "Screenshot 2")
+
 bashMaps is a Google Maps viewer for command line interface. This is a group project made for Unix (IT202) course.
 
 ## Features
